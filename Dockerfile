@@ -1,11 +1,19 @@
-FROM ubuntu:14.04 AS builder
-
-COPY . .
+FROM ubuntu:14.04 AS unzipper
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        build-essential \
-        libjemalloc-dev
+    bsdtar
+
+COPY . .
+
+RUN bsdtar --strip-components=1 -xvf redis.zip -C redis
+
+WORKDIR redis
+
+FROM unzipper AS builder
+
+RUN apt-get install -y --no-install-recommends \
+    build-essential
 
 RUN make
 
@@ -26,4 +34,3 @@ EXPOSE 6379
 
 ENTRYPOINT ./redis-server
 
-# CMD tail -f /dev/null
