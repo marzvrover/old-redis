@@ -3,12 +3,10 @@ FROM ubuntu:14.04 AS unzipper
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     bsdtar
-#        unzip
 
 COPY . .
 
 RUN bsdtar --strip-components=1 -xvf redis.zip -C redis
-# RUN unzip redis.zip -d redis
 
 WORKDIR redis
 
@@ -36,4 +34,3 @@ EXPOSE 6379
 
 ENTRYPOINT ./redis-server
 
-# CMD tail -f /dev/null
