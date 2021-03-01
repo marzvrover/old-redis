@@ -1,3 +1,7 @@
+This repo makes a docker container out of redis/redis v2.8.18. I required this version of redis to run a historical project and couldn't locate a suitable container.
+
+ORGINAL READ ME BELOW
+
 Where to find complete Redis documentation?
 -------------------------------------------
 
